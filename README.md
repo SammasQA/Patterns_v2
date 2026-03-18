@@ -1,0 +1,1 @@
+[![CI](https://github.com/SammasQA/Patterns_v2/actions/workflows/ci.yml/badge.svg)](https://github.com/SammasQA/Patterns_v2/actions/workflows/ci.yml)
