@@ -19,7 +19,7 @@ class AuthTest {
 
     @BeforeEach
     void setup() {
-       // Configuration.holdBrowserOpen = true;
+        // Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
     }
 
@@ -28,14 +28,14 @@ class AuthTest {
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
         var registeredUser = getRegisteredUser("active");
 
-        // Заполняем форму входа
         $("[data-test-id=login] input").setValue(registeredUser.getLogin());
         $("[data-test-id=password] input").setValue(registeredUser.getPassword());
         $(byText("Продолжить")).click();
 
-
         $(byText("Продолжить")).shouldNot(Condition.exist, Duration.ofSeconds(5));
-        $("h2").shouldHave(Condition.text("Личный кабинет"));
+        $("h2")
+                .shouldBe(Condition.visible)
+                .shouldHave(Condition.text("Личный кабинет"));
     }
 
     @Test
@@ -47,9 +47,9 @@ class AuthTest {
         $("[data-test-id=password] input").setValue(notRegisteredUser.getPassword());
         $(byText("Продолжить")).click();
 
-
         $("[data-test-id=error-notification]")
-                .shouldHave(Condition.text("Неверно указан логин или пароль"), Duration.ofSeconds(5));
+                .shouldBe(Condition.visible)
+                .shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"), Duration.ofSeconds(5));
     }
 
     @Test
@@ -62,7 +62,8 @@ class AuthTest {
         $(byText("Продолжить")).click();
 
         $("[data-test-id=error-notification]")
-                .shouldHave(Condition.text("Неверно указан логин или пароль"), Duration.ofSeconds(5));
+                .shouldBe(Condition.visible)
+                .shouldHave(Condition.text("Ошибка! Пользователь заблокирован"), Duration.ofSeconds(5));
     }
 
     @Test
@@ -76,7 +77,8 @@ class AuthTest {
         $(byText("Продолжить")).click();
 
         $("[data-test-id=error-notification]")
-                .shouldHave(Condition.text("Неверно указан логин или пароль"), Duration.ofSeconds(5));
+                .shouldBe(Condition.visible)
+                .shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"), Duration.ofSeconds(5));
     }
 
     @Test
@@ -90,6 +92,7 @@ class AuthTest {
         $(byText("Продолжить")).click();
 
         $("[data-test-id=error-notification]")
-                .shouldHave(Condition.text("Неверно указан логин или пароль"), Duration.ofSeconds(5));
+                .shouldBe(Condition.visible)
+                .shouldHave(Condition.text("Ошибка! Неверно указан логин или пароль"), Duration.ofSeconds(5));
     }
 }
